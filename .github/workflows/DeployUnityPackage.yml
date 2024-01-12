@@ -1,0 +1,24 @@
+name: Deploy Unity Package
+
+on:
+  push:
+    branches:
+      - Master  # or your default branch
+
+jobs:
+  update-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Get latest commit SHA
+      run: echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+    - name: Update Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ env.COMMIT_SHA }}
+        name: Release ${{ env.COMMIT_SHA }}
+        body: 'Release of commit ${{ env.COMMIT_SHA }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
