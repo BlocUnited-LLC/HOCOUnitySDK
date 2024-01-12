@@ -3,7 +3,7 @@ name: Deploy Unity Package
 on:
   push:
     branches:
-      - Master  # or your default branch
+      - master  # Ensure this matches the case of your branch name
 
 jobs:
   update-release:
@@ -11,14 +11,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Get latest commit SHA
-      run: echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+    - name: Get short commit SHA
+      run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+    - name: Define new tag
+      run: echo "NEW_TAG=v1.0-${{ env.SHORT_SHA }}" >> $GITHUB_ENV
 
     - name: Update Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ env.COMMIT_SHA }}
-        name: Release ${{ env.COMMIT_SHA }}
-        body: 'Release of commit ${{ env.COMMIT_SHA }}'
+        tag_name: ${{ env.NEW_TAG }}
+        name: Release ${{ env.NEW_TAG }}
+        body: 'Release of commit ${{ env.SHORT_SHA }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
