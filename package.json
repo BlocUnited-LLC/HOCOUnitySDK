@@ -2,13 +2,12 @@
     "name": "com.honeycomb.hocounitysdk",
     "displayName": "HOCO Unity SDK",
     "version": "0.0.13-Alpha",
-    "unity": "5.x, 2021.x, 2022.x, 2023.x",
     "description": "HOCOUnitySDK is a comprehensive SDK provided by HoneyComb, designed to integrate HoneyComb's services into Unity projects. It offers a range of features to enhance game and application development with HoneyComb's technologies.",
-    "keywords": ["honeycomb", "HOCO", "sdk", "unity", "integration", "game development"],
+    "keywords": ["HoneyComb", "HOCO", "SDK", "Unity", "Integration", "Game", "Web3", "Crypto", "NFT", "BlockChain"],
     "author": {
       "name": "BlocUnited",
       "email": "support@BlocUnited.com",
-      "url": "https://www.BlocUnited.com"
+      "url": "https://github.com/BlocUnited-LLC"
     },
     "repository": {
       "type": "git",
@@ -24,6 +23,8 @@
     "bugs": {
       "url": "https://github.com/HoneyComb/HOCOUnitySDK/issues"
     },
-    "homepage": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/"
+    "homepage": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/",
+    "changelogUrl": "https://github.com/BlocUnited-LLC/HOCOUnitySDK/commits/Master",
+    "hideInEditor": false
   }
   
