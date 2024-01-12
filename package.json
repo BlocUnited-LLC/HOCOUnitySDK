@@ -1,7 +1,7 @@
 {
     "name": "com.honeycomb.hocounitysdk",
     "displayName": "HOCO Unity SDK",
-    "version": "0.13.Alpha",
+    "version": "0.0.13-Alpha",
     "unity": "5.x, 2021.x, 2022.x, 2023.x",
     "description": "HOCOUnitySDK is a comprehensive SDK provided by HoneyComb, designed to integrate HoneyComb's services into Unity projects. It offers a range of features to enhance game and application development with HoneyComb's technologies.",
     "keywords": ["honeycomb", "HOCO", "sdk", "unity", "integration", "game development"],
