@@ -15,10 +15,10 @@
       "url": "https://github.com/BlocUnited/HOCOUnitySDK.git"
     },
     "dependencies": {
-      // List dependencies here, if any
+      
     },
     "devDependencies": {
-      // Development dependencies (e.g., unit testing frameworks)
+      
     },
     "license": "MIT",
     "bugs": {
