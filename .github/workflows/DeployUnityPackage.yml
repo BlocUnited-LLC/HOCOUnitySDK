@@ -11,17 +11,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Get short commit SHA
-      run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+    - name: Get current date
+      run: echo "CURRENT_DATE=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
 
     - name: Define new tag
-      run: echo "NEW_TAG=v1.0-${{ env.SHORT_SHA }}" >> $GITHUB_ENV
+      run: echo "NEW_TAG=release-${{ env.CURRENT_DATE }}" >> $GITHUB_ENV
 
     - name: Update Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ env.NEW_TAG }}
         name: Release ${{ env.NEW_TAG }}
-        body: 'Release of commit ${{ env.SHORT_SHA }}'
+        body: 'Release generated on ${{ env.CURRENT_DATE }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
