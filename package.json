@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#upm",
-    "com.unity.nuget.newtonsoft-json": "2.5.0"
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
   },
   "devDependencies": {},
   "license": "See LICENSE.md file",
