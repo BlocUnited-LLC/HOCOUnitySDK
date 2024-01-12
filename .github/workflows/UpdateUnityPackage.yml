@@ -3,7 +3,7 @@ name: Update Unity Package
 on:
   push:
     branches:
-      - master  # Ensure this matches the case of your branch name
+      - Master  # Ensure this matches the case of your branch name
 
 jobs:
   update-release:
