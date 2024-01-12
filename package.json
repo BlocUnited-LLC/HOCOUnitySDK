@@ -19,12 +19,12 @@
     "devDependencies": {
       
     },
-    "license": "MIT",
     "bugs": {
       "url": "https://github.com/HoneyComb/HOCOUnitySDK/issues"
     },
     "homepage": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/",
     "changelogUrl": "https://github.com/BlocUnited-LLC/HOCOUnitySDK/commits/Master",
+    "documentationUrl": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/index.html",
     "hideInEditor": false
   }
   
