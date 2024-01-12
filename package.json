@@ -16,7 +16,7 @@
     "BlockChain"
   ],
   "author": {
-    "name": "BlocUnited",
+    "name": "Dencho@BlocUnited",
     "email": "support@BlocUnited.com",
     "url": "https://github.com/BlocUnited-LLC"
   },
@@ -24,7 +24,10 @@
     "type": "git",
     "url": "https://github.com/BlocUnited/HOCOUnitySDK.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#upm",
+    "com.unity.nuget.newtonsoft-json": "2.5.0"
+  },
   "devDependencies": {},
   "license": "See LICENSE.md file",
   "licensesUrl": "LICENSE.md",
