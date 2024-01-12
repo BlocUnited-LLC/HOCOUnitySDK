@@ -1,32 +1,45 @@
 {
-    "name": "com.honeycomb.hocounitysdk",
-    "displayName": "HOCO Unity SDK",
-    "version": "0.0.13-Alpha",
-    "description": "HOCOUnitySDK is a comprehensive SDK provided by HoneyComb, designed to integrate HoneyComb's services into Unity projects. It offers a range of features to enhance game and application development with HoneyComb's technologies.",
-    "keywords": ["HoneyComb", "HOCO", "SDK", "Unity", "Integration", "Game", "Web3", "Crypto", "NFT", "BlockChain"],
-    "author": {
-      "name": "BlocUnited",
-      "email": "support@BlocUnited.com",
-      "url": "https://github.com/BlocUnited-LLC"
-    },
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/BlocUnited/HOCOUnitySDK.git"
-    },
-    "dependencies": {
-      
-    },
-    "devDependencies": {
-      
-    },
-    "license": "See LICENSE.md file",
-    "licensesUrl": "LICENSE.md",
-    "bugs": {
-      "url": "https://github.com/HoneyComb/HOCOUnitySDK/issues"
-    },
-    "homepage": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/",
-    "changelogUrl": "https://github.com/BlocUnited-LLC/HOCOUnitySDK/commits/Master",
-    "documentationUrl": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/index.html",
-    "hideInEditor": false
-  }
-  
+  "name": "com.honeycomb.hocounitysdk",
+  "displayName": "HOCO Unity SDK",
+  "version": "0.0.13-Alpha",
+  "description": "HOCOUnitySDK is a comprehensive SDK provided by HoneyComb, designed to integrate HoneyComb's services into Unity projects. It offers a range of features to enhance game and application development with HoneyComb's technologies.",
+  "keywords": [
+    "HoneyComb",
+    "HOCO",
+    "SDK",
+    "Unity",
+    "Integration",
+    "Game",
+    "Web3",
+    "Crypto",
+    "NFT",
+    "BlockChain"
+  ],
+  "author": {
+    "name": "BlocUnited",
+    "email": "support@BlocUnited.com",
+    "url": "https://github.com/BlocUnited-LLC"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BlocUnited/HOCOUnitySDK.git"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "license": "See LICENSE.md file",
+  "licensesUrl": "LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/HoneyComb/HOCOUnitySDK/issues"
+  },
+  "homepage": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/",
+  "changelogUrl": "https://github.com/BlocUnited-LLC/HOCOUnitySDK/commits/Master",
+  "documentationUrl": "https://blocunited-llc.github.io/HOCOUnitySDK_Docs/index.html",
+  "hideInEditor": false,
+  "samples": [
+    {
+      "displayName": "Shared Data",
+      "description": "Contains Extendable DataTypes and DataInstances for PlayerData, CellData, and More. Optional files to provide developers an example on creating persistance data types.",
+      "path": "Samples~/Shared"
+    }
+  ]
+}
