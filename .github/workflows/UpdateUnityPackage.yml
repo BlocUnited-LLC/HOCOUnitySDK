@@ -3,7 +3,7 @@ name: Update Unity Package
 on:
   push:
     branches:
-      - Master  # Ensure this matches the case of your branch name
+      - master  # Ensure this matches the case of your branch name
 
 jobs:
   update-release:
@@ -11,17 +11,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Get current date
-      run: echo "CURRENT_DATE=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+    - name: Read Version from package.json
+      id: package_version
+      run: echo "PACKAGE_VERSION=$(jq -r .version package.json)" >> $GITHUB_ENV
 
     - name: Define new tag
-      run: echo "NEW_TAG=release-${{ env.CURRENT_DATE }}" >> $GITHUB_ENV
+      run: echo "NEW_TAG=v${{ env.PACKAGE_VERSION }}" >> $GITHUB_ENV
 
     - name: Update Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ env.NEW_TAG }}
-        name: Release ${{ env.NEW_TAG }}
-        body: 'Release generated on ${{ env.CURRENT_DATE }}'
+        name: Release v${{ env.PACKAGE_VERSION }}
+        body: 'Release of version ${{ env.PACKAGE_VERSION }}'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
