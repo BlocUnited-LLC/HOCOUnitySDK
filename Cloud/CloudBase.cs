@@ -71,12 +71,12 @@ namespace Hoco.Cloud
             }
             catch (System.Exception e)
             { // In case of an exception, log the error and return a new existingInstance of T.
+                Debug.LogError($"Error in GetFilteredData: {e.Message}");
                 var data = JsonConvert.DeserializeObject<T>(jsonResponse);
                 if(data == null)
                     return new T();
                 else
                     return data;
-                Debug.LogError($"Error in GetFilteredData: {e.Message}");
             }
         }
         public static async UniTask<bool> Update<TInput>(TInput instanceData,string instanceId, string storageKey = "NULL") where TInput : class, new() //d Constraint to ensure TOutput is a class and has a parameterless constructor
@@ -143,17 +143,7 @@ namespace Hoco.Cloud
             }
             return new T();
         }
-        private static string GetId<T>(T instance) where T : LiveCloudData
-        {
-            // This method now only accepts T that is or derives from LiveCloudData.
-            return instance?.Id ?? string.Empty;
-        }
-        //private static string GetId<T>(T instance)
-        //{
-        //    // Implement logic to extract the ID from the instance
-        //    // This is just a placeholder
-        //    return instance?.GetType().GetProperty("Id")?.GetValue(instance)?.ToString() ?? string.Empty;
-        //}
+      
         /// <summary>
         /// Things to know to use this function:
         /// Make sure the Data fed in is a Root class of the data that is to be added to a <see cref="LiveCloudData"/>. 
