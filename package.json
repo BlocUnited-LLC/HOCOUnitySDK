@@ -19,6 +19,8 @@
     "devDependencies": {
       
     },
+    "license": "See LICENSE.md file",
+    "licensesUrl": "LICENSE.md",
     "bugs": {
       "url": "https://github.com/HoneyComb/HOCOUnitySDK/issues"
     },
