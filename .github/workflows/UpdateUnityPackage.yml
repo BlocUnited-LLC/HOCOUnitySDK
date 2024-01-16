@@ -9,7 +9,7 @@ jobs:
   update-release:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Read Version from package.json
       id: package_version
