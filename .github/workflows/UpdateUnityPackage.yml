@@ -38,6 +38,7 @@ jobs:
         name: Release v${{ env.PACKAGE_VERSION }}
         body: 'Release of version ${{ env.PACKAGE_VERSION }}'
         files: |
-          ${{ if env.UNITYPACKAGE_FOUND == 'true' }}*.unitypackage${{ endif }}
+          *.unitypackage
+      if: env.UNITYPACKAGE_FOUND == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
