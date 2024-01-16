@@ -19,14 +19,13 @@ jobs:
       run: echo "NEW_TAG=v${{ env.PACKAGE_VERSION }}" >> $GITHUB_ENV
 
     - name: Find UnityPackage
-      id: find_unitypackage
       run: |
         unitypackage=$(ls *.unitypackage 2> /dev/null | head -n 1)
         echo "Found UnityPackage: $unitypackage"
         if [ -n "$unitypackage" ]; then
           new_name="YourPackageName-${{ env.PACKAGE_VERSION }}.unitypackage"
           mv $unitypackage $new_name
-          echo "::set-output name=unitypackage_path::$new_name"
+          echo "unitypackage_path=$new_name" >> $GITHUB_ENV
         fi
 
     - name: Update Release
