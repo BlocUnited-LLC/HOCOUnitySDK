@@ -3,7 +3,7 @@ name: Update Unity Package
 on:
   push:
     branches:
-      - Master  # Ensure this matches the case of your branch name
+      - Master
 
 jobs:
   update-release:
@@ -18,11 +18,26 @@ jobs:
     - name: Define new tag
       run: echo "NEW_TAG=v${{ env.PACKAGE_VERSION }}" >> $GITHUB_ENV
 
+    - name: Check for UnityPackage
+      id: check_unitypackage
+      run: |
+        if ls *.unitypackage 1> /dev/null 2>&1; then
+          echo "UNITYPACKAGE_FOUND=true" >> $GITHUB_ENV
+        else
+          echo "UNITYPACKAGE_FOUND=false" >> $GITHUB_ENV
+
+    - name: Rename UnityPackage
+      if: env.UNITYPACKAGE_FOUND == 'true'
+      run: |
+        mv *.unitypackage "your_project_name-${{ env.PACKAGE_VERSION }}.unitypackage"
+
     - name: Update Release
       uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ env.NEW_TAG }}
         name: Release v${{ env.PACKAGE_VERSION }}
         body: 'Release of version ${{ env.PACKAGE_VERSION }}'
+        files: |
+          ${{ if env.UNITYPACKAGE_FOUND == 'true' }}*.unitypackage${{ endif }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
