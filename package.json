@@ -16,7 +16,7 @@
     "BlockChain"
   ],
   "author": {
-    "name": "Dencho@BlocUnited",
+    "name": "BlocUnited",
     "email": "support@BlocUnited.com",
     "url": "https://github.com/BlocUnited-LLC"
   },
@@ -40,9 +40,9 @@
   "hideInEditor": false,
   "samples": [
     {
-      "displayName": "Shared Data",
+      "displayName": "Sample Data",
       "description": "Contains Extendable DataTypes and DataInstances for PlayerData, CellData, and More. Optional files to provide developers an example on creating persistance data types.",
-      "path": "Samples~/Shared"
+      "path": "Samples~/"
     }
   ]
 }
