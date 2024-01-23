@@ -1,8 +1,6 @@
-﻿
-namespace Hoco.Runtime
+﻿using Hoco.Cloud;
+namespace Hoco.Samples.Runtime
 {
-    using Hoco.Data;
-
     /// <summary>The container for the live data of a cell that exists on the block chain and the database.</summary>
     [System.Serializable]
     public class LiveCellData : LiveCloudData

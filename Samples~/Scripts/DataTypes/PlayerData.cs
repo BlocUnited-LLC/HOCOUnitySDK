@@ -1,4 +1,4 @@
-﻿namespace Hoco.Runtime
+﻿namespace Hoco.Samples.Runtime
 {
     /// <summary>This is a PlayerData class provided by the HocoSDK. You can use this to store data about your player or delete it if you make your own.</summary>
     [System.Serializable]

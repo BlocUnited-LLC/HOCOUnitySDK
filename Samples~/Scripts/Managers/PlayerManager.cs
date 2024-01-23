@@ -7,8 +7,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.Events;
 using System;
 
-using Hoco.Runtime;
-namespace Hoco.Samples
+namespace Hoco.Samples.Runtime
 {
 
     public class PlayerManager : MonoBehaviour
@@ -57,14 +56,14 @@ namespace Hoco.Samples
 
         private async UniTaskVoid ConnectToCloud()
         {
-            var livePlayerData = await LivePlayerData.GetFromPlayerAddress(m_localPlayerData.PlayerData.PlayerAddress);
+            var livePlayerData = await LivePlayerData.GetByAddress(m_localPlayerData.PlayerData.PlayerAddress);
             Debug.Log(string.Format("Returning Player: {0}\n{1}", !string.IsNullOrEmpty(livePlayerData.Id)?"YES":"NO", JsonConvert.SerializeObject(livePlayerData, Formatting.Indented)));
             if(string.IsNullOrEmpty(livePlayerData.Id))//New Player
             {
                 //PlayerData does not exist in the DB, we create it
                 bool success = await LivePlayerData.Create(m_localPlayerData.PlayerData);
                 Debug.Log(string.Format("Creating PlayerData {0} for {1}", success, m_localPlayerData.PlayerData.PlayerAddress));
-                livePlayerData = await LivePlayerData.GetFromPlayerAddress(m_localPlayerData.PlayerData.PlayerAddress);
+                livePlayerData = await LivePlayerData.GetByAddress(m_localPlayerData.PlayerData.PlayerAddress);
             }
             m_localPlayerData = livePlayerData;
             Debug.Log(string.Format("Got PlayerData for {0}\n{1}", m_localPlayerData.PlayerData.PlayerAddress, JsonConvert.SerializeObject(m_localPlayerData, Formatting.Indented)));

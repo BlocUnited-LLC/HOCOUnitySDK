@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hoco.Data
+namespace Hoco.Samples.Runtime
 {
     /// <summary>The base class for all entities that represent NFTs.</summary>
     [System.Serializable]

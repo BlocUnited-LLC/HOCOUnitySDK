@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
-namespace Hoco.Runtime
+namespace Hoco.Cloud
 {
     /// <summary>This is the Base class for all LiveData objects that are used in Cloud Databases, you can inherit from this class to make your own Datatype. :O</summary>
     [System.Serializable]

@@ -1,8 +1,8 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Hoco.Runtime;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -50,12 +50,9 @@ namespace Hoco.Cloud
         public static async UniTask<T> Get(string filterProperty, string filterValue, string storageKey = "NULL")
         {
             string url = ConstructGetUrl(storageKey, filterProperty, filterValue);
-
             // Make the GET request. Assume GetRequest is an async method that fetches the data.
             string jsonResponse = await GetRequest(url);
-
-            Debug.Log($"GetFilteredDataResponse: {jsonResponse}");
-
+            Debug.Log($"GetFilteredData>>Response: {jsonResponse}");
             try
             { // Deserialize the JSON response into type T. This assumes that T is a type that can be deserialized from the JSON response.
                 var data = JsonConvert.DeserializeObject<T[]>(jsonResponse);
@@ -66,6 +63,11 @@ namespace Hoco.Cloud
                 }
                 else
                 {
+                    for(int i = 0; i < data.Length; i++)
+                    {
+                        Debug.Log(string.Format("GetFilteredData: data found for <{0}> = {1}", filterProperty, filterValue));
+                        Debug.Log(string.Format("GetFilteredData: {0}", JsonConvert.SerializeObject(data[i], Formatting.Indented)));
+                    }
                     Debug.Log(string.Format("GetFilteredData: data found for <{0}> = {1}", filterProperty, filterValue));
                     return data.FirstOrDefault();
                 }
@@ -80,35 +82,71 @@ namespace Hoco.Cloud
                     return data;
             }
         }
+        public static async UniTask<T[]> GetAll(string storageKey)
+        {
+            string url = ConstructGetAllUrl(storageKey);
+            string jsonResponse = string.Empty;
+            try
+            {
+               jsonResponse = await GetRequest(url);
+               Debug.Log(jsonResponse);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e.Message);
+                jsonResponse = string.Empty;
+            }
+            if(string.IsNullOrEmpty(jsonResponse))
+            {
+                Debug.Log("NULL");
+            }
+            try
+            {
+                // Deserialize the JSON response into type T. This assumes that T is a type that can be deserialized from the JSON response.
+                var data = JsonConvert.DeserializeObject<T[]>(jsonResponse);
+                if (data == null || data.Length == 0)
+                {
+                    Debug.Log(string.Format("GetAllData: No data found for <{0}>", storageKey));
+                    return new T[0];
+                }
+                return data;
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+            return new T[0];
+        }
         public static async UniTask<bool> Update<TInput>(TInput instanceData,string instanceId, string storageKey = "NULL") where TInput : class, new() //d Constraint to ensure TOutput is a class and has a parameterless constructor
         {
             if (string.IsNullOrEmpty(instanceId))
                 return false;
             try
             {
-                
                 string url = ConstructUpdateUrl(storageKey);
-                Dictionary<string, object> formattedJsonData = new Dictionary<string, object>() { { storageKey, instanceData } };//InstanceData should be a container class like PlayerData or CellData
+                Dictionary<string, object> formattedJsonData = new Dictionary<string, object>() { { typeof(TInput).Name, instanceData } };//InstanceData should be a container class like PlayerData or CellData
                 string formattedJsonDataString = JsonConvert.SerializeObject(formattedJsonData, Formatting.None);
+                Debug.Log(string.Format("Update Payload: \n{0}", formattedJsonDataString));
                 LiveDataRequest raw = new LiveDataRequest { collectionName = storageKey, 
                     id = instanceId,
                     //GetId(instanceData), 
                     json = formattedJsonDataString };
                 string rawJson = JsonConvert.SerializeObject(raw, Formatting.None);
-                Debug.Log(string.Format("\nSending Update Json:\n{0}\n\n{1}", url, rawJson));
+                Debug.Log(string.Format("UpdatingInstance: {0}.{1}\n{2}", storageKey, raw.id, url));
+                //Debug.Log(string.Format("\nSending Update Json:\n{0}\n\n{1}", url, rawJson));
                 var response = await PutRequest(url, rawJson);
-
-                try
-                {
-                    Debug.Log(string.Format("\nUpdateDataSuccess\n{0}\n", response));
-                    //var updatedData = JsonConvert.DeserializeObject<TOutput>(response);
-                    //return updatedData;
-                    return true;
-                }
-                catch (System.Exception e)
-                {
-                    Debug.LogError($"Error in GetFilteredData: {e.Message}");
-                }
+                Debug.Log(string.Format("UpdateSuccessful: {0}.{1}", storageKey, raw.id));
+                return true;
+                //try
+                //{
+                //    //var updatedData = JsonConvert.DeserializeObject<TOutput>(response);
+                //    //return updatedData;
+                //    return true;
+                //}
+                //catch (System.Exception e)
+                //{
+                //    Debug.LogError($"Error in GetFilteredData: {e.Message}");
+                //}
             }
             catch (System.Exception e)
             {
@@ -161,13 +199,15 @@ namespace Hoco.Cloud
                 string url = ConstructCreateUrl(storageKey);
                 Debug.Log(string.Format("{0}",url));
                     //FormatUrl(k_FunctionCreateCollectionURL, k_PlayerDataCollectionName);//FormatCreateUrl(k_PlayerDataCollectionName);
-                //var localPlayerData = new PlayerData { PlayerAddress = _playerAddress };
-                Dictionary<string, object> formattedJsonData = new Dictionary<string, object>() { { storageKey, newData } };
+                //Dictionary<string, object> formattedJsonData = new Dictionary<string, object>() { { storageKey, newData } };//Work but names class the storage key
+                Dictionary<string, object> formattedJsonData = new Dictionary<string, object>() { { typeof(T).Name, newData } };
                 string formattedJsonDataString = JsonConvert.SerializeObject(formattedJsonData, Formatting.None);
+                Debug.Log(string.Format("Creation Payload: \n{0}", formattedJsonDataString));
                 LiveDataRequest raw = new LiveDataRequest { collectionName = storageKey, json = formattedJsonDataString };
                 string rawJson = JsonConvert.SerializeObject(raw, Formatting.None);
                 Debug.Log(string.Format("{0}", JsonConvert.SerializeObject(raw, Formatting.Indented)));
-                var response = await PostRequest(url, rawJson); 
+                var response = await PostRequest(url, rawJson);
+                Debug.Log(response);
                 return true;
             }
             catch (System.Exception e)
@@ -270,17 +310,21 @@ namespace Hoco.Cloud
             Debug.Log(finalUrl);
             return finalUrl;
         }
+        private static string ConstructGetAllUrl(string collectionName)
+        {
+            return string.Format("{0}?collectionName={1}",CloudAPIConfiguration.Selected.Settings.GetAllURL,collectionName);
+        }
         private static string ConstructUpdateUrl(string collectionName)
         {
             return string.Format("{0}?collectionName={1}",
                 CloudAPIConfiguration.Selected.Settings.UpdateURL,//CloudAPISettings.UpdateURL,
                 collectionName) ;
         }
-        private static string ConstructCreateUrl(string _collectionName)
+        private static string ConstructCreateUrl(string collectionName)
         {
             return string.Format("{0}?collectionName={1}",
                 CloudAPIConfiguration.Selected.Settings.CreateURL,//CloudAPISettings.CreateURL, 
-                _collectionName);
+                collectionName);
         }
         private static string ConstructDeleteUrl(string collectionName)
         {

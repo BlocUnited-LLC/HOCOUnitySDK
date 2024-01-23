@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Hoco.Data
+namespace Hoco.Samples.Runtime
 {
     /// <summary>
     /// A Cell is a point in worldspace that uses properties to define its Positio, Bounds and other features. 
